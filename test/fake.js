@@ -1,6 +1,6 @@
 const tape = require("tape");
 const utils = require("ethereumjs-util");
-const FakeTransaction = require("../fake.js");
+const FakeTransaction = require("../bundle-fake.js");
 
 tape("[FakeTransaction]: Basic functions", (t) => {
   t.test("should not produce hash collsions for different senders", (st) => {

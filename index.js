@@ -1,5 +1,5 @@
-const ethUtil = require("ethereumjs-util");
-const fees = require("ethereum-common/params.json");
+import ethUtil from "ethereumjs-util";
+import fees from "ethereum-common/params.json";
 
 const BN = ethUtil.BN;
 
@@ -44,10 +44,11 @@ const N_DIV_2 = new BN("7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46
  * */
 
 class Transaction {
-  constructor (data) {
-    data = data || {};
+  constructor (rawTx) {
+    const data = rawTx || {};
 
     // Define Properties
+    /* eslint-disable sort-keys */
     const fields = [{
       name: "nonce",
       length: 32,
@@ -96,6 +97,7 @@ class Transaction {
       allowLess: true,
       default: Buffer.from([])
     }];
+    /* eslint-enable sort-keys */
 
     /**
      * Returns the rlp encoding of the transaction
@@ -146,11 +148,7 @@ class Transaction {
    * @param {boolean} [includeSignature=true] whether or not to inculde the signature
    * @return {Buffer}
    */
-  hash (includeSignature) {
-    if (includeSignature === undefined) {
-      includeSignature = true;
-    }
-
+  hash (includeSignature = true) {
     // EIP155 spec:
     // when computing the hash of a transaction for purposes of signing or recovering,
     // instead of hashing only the first six elements (ie. nonce, gasprice, startgas, to, value, data),
@@ -326,4 +324,4 @@ class Transaction {
   }
 }
 
-module.exports = Transaction;
+export default Transaction;

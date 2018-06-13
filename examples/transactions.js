@@ -1,9 +1,10 @@
 // see full article here https://wanderer.github.io/ethereum/2014/06/14/creating-and-verifying-transaction-with-node/
 
-const Transaction = require("..");
+import Transaction from "..";
 
 // create a blank transaction
-const tx = new Transaction(null, 1); // mainnet Tx EIP155
+// mainnet Tx EIP155
+const tx = new Transaction(null, 1);
 
 // So now we have created a blank transaction but Its not quiet valid yet. We
 // need to add some things to it. Lets start:

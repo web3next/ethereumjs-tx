@@ -1,5 +1,5 @@
-const ethUtil = require("ethereumjs-util");
-const Transaction = require(".");
+import ethUtil from "ethereumjs-util";
+import Transaction from ".";
 
 /**
  * Creates a new transaction object that doesn't need to be signed
