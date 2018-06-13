@@ -1,7 +1,5 @@
-'use strict'
-
-const Transaction = require('./index.js')
-const ethUtil = require('ethereumjs-util')
+const ethUtil = require("ethereumjs-util");
+const Transaction = require(".");
 
 /**
  * Creates a new transaction object that doesn't need to be signed
@@ -33,39 +31,41 @@ const ethUtil = require('ethereumjs-util')
  */
 module.exports = class FakeTransaction extends Transaction {
   constructor (data) {
-    super(data)
+    super(data);
 
-    var self = this
+    const self = this;
 
     /**
      * @prop {Buffer} from (read/write) Set from address to bypass transaction signing.
      */
-    Object.defineProperty(this, 'from', {
+    Object.defineProperty(this, "from", {
       enumerable: true,
       configurable: true,
       get: this.getSenderAddress.bind(self),
-      set: function (val) {
-        self._from = ethUtil.toBuffer(val)
+      set (val) {
+        self._from = ethUtil.toBuffer(val);
       }
-    })
+    });
 
     // set from address or default to null address
-    this.from = (data && data.from) ? data.from : '0x0000000000000000000000000000000000000000'
+    this.from = data && data.from ? data.from : "0x0000000000000000000000000000000000000000";
   }
 
   /**
    * Computes a sha3-256 hash of the serialized tx, using the sender address to generate a fake signature.
-   * @param {Boolean} [includeSignature=true] whether or not to inculde the signature
+   *
+   * @param {boolean} [includeSignature=true] whether or not to inculde the signature
    * @return {Buffer}
    */
   hash (includeSignature) {
     if (includeSignature) {
       // include a fake signature using the from address as a private key
-      let fakeKey = Buffer.concat([this._from, this._from.slice(0, 12)])
-      this.sign(fakeKey)
+      const fakeKey = Buffer.concat([this._from, this._from.slice(0, 12)]);
+
+      this.sign(fakeKey);
     }
 
-    return super.hash(includeSignature)
+    return super.hash(includeSignature);
   }
-}
+};
 
