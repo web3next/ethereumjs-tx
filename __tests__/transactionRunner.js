@@ -1,16 +1,11 @@
-const tape = require("tape");
-const ethUtil = require("ethereumjs-util");
+import ethUtil, {bufferToHex, addHexPrefix, stripHexPrefix, setLength} from "ethereumjs-util";
+import testing from "ethereumjs-testing";
+import common from "ethereum-common/params.json";
+import Tx from "..";
+
 const argv = require("minimist")(process.argv.slice(2));
-const testing = require("ethereumjs-testing");
-const common = require("ethereum-common/params.json");
-const Tx = require("..");
 
 const txTests = testing.getTests("transaction", argv);
-
-const bufferToHex = ethUtil.bufferToHex;
-const addHexPrefix = ethUtil.addHexPrefix;
-const stripHexPrefix = ethUtil.stripHexPrefix;
-const setLength = ethUtil.setLength;
 
 function addPad (v) {
   if (v.length % 2 === 1) {

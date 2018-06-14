@@ -6,11 +6,11 @@
   "scripts": {
     "coverage": "istanbul cover ./test/index.js",
     "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
-    "lint": "eslint ./*.js examples/*.js test/*.js",
-    "lint-fix": "eslint --fix ./*.js examples/*.js test/*.js",
+    "lint": "eslint ./*.js examples/*.js __tests__/*.js",
+    "lint-fix": "eslint --fix ./*.js examples/*.js __tests__/*.js",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "karma start karma.conf.js",
-    "test:node": "tape ./test/index.js",
+    "test:node": "jest",
     "build:es5": "babel index.js --source-root ./ -d ./es5",
     "build:docs": "documentation --github  -f md ./index.js > ./docs/index.md && contributor"
   },
@@ -39,6 +39,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "ethereumjs-testing": "0.0.1",
     "istanbul": "^0.4.1",
+    "jest": "^23.1.0",
     "karma": "^1.1.1",
     "karma-browserify": "^5.1.0",
     "karma-detect-browsers": "^2.0.2",
@@ -46,9 +47,7 @@
     "karma-firefox-launcher": "^1.0.0",
     "karma-tap": "^2.0.1",
     "minimist": "^1.2.0",
-    "rollup": "^0.60.4",
-    "standard": "^7.1.2",
-    "tape": "^4.0.3"
+    "rollup": "^0.60.4"
   },
   "repository": {
     "type": "git",

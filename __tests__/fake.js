@@ -1,10 +1,8 @@
-const tape = require("tape");
-const utils = require("ethereumjs-util");
-const FakeTransaction = require("../bundle-fake.js");
+import utils from "ethereumjs-util";
+import FakeTransaction from "..";
 
-tape("[FakeTransaction]: Basic functions", (t) => {
-  t.test("should not produce hash collsions for different senders", (st) => {
-    st.plan(1);
+describe("[FakeTransaction]: Basic functions", () => {
+  test("should not produce hash collsions for different senders", () => {
     const baseTxData = {
       data: "0x7cf5dab00000000000000000000000000000000000000000000000000000000000000005",
       gasLimit: "0x15f90",
@@ -20,6 +18,6 @@ tape("[FakeTransaction]: Basic functions", (t) => {
     const baseTxHash = utils.bufferToHex(baseTx.hash(true));
     const modifiedFromFieldTxHash = utils.bufferToHex(modifiedFromFieldTx.hash(true));
 
-    st.notEqual(baseTxHash, modifiedFromFieldTxHash, "FakeTransactions with different `from` addresses but otherwise identical data should have different hashes");
+    expect(baseTxHash).not.toBe(modifiedFromFieldTxHash); // "FakeTransactions with different `from` addresses but otherwise identical data should have different hashes");
   });
 });
